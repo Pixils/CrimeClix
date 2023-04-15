@@ -1,10 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="mx-20 max-w-4xl md:mx-auto my-20">
+    <div className="mx-20 max-w-4xl md:mx-auto">
       <Navbar />
       <main className="mt-16">
         <div className="text-7xl mb-8">🚨</div>
@@ -16,9 +17,9 @@ export default function Home() {
           of criminals from textual descriptions
         </h1>
         <div className="flex justify-center w-full mt-12">
-          <button className="text-white px-12 py-3 font-lg font-semibold rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-700 hover:from-indigo-500 hover:to-indigo-800 shadow-2xl shadow-stone-800/30 transition hover:scale-110">
+          <Link href="/try" className="text-white px-12 py-3 font-lg font-semibold rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-700 hover:from-indigo-500 hover:to-indigo-800 shadow-2xl shadow-stone-800/30 transition hover:scale-110">
             Try Now!
-          </button>
+          </Link>
         </div>
         <div className="w-full mt-20 px-16 py-40 bg-indigo-300 rounded-3xl flex items-center justify-evenly shadow-2xl shadow-stone-800/30">
           <span className="bg-white p-10 w-48 rounded-2xl font-handwritten shadow-2xl shadow-stone-800/30 transition hover:scale-110">
