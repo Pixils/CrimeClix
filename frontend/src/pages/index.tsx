@@ -1,18 +1,11 @@
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="mx-20 max-w-4xl md:mx-auto my-20">
-      <nav className="flex justify-between items-center">
-        <div>
-          <h1 className="text-4xl font-bold text-indigo-600">CrimeClix</h1>
-        </div>
-        <div>
-          <span className="text-stone-500 font-light">
-            By Team <span className="font-pixel">Pixils</span> 🫰
-          </span>
-        </div>
-      </nav>
+      <Navbar />
       <main className="mt-16">
         <div className="text-7xl mb-8">🚨</div>
         <h1 className="text-6xl font-bold text-stone-800">
@@ -37,27 +30,7 @@ export default function Home() {
           </span>
         </div>
       </main>
-      <footer className="mt-40 text-center text-zinc-500 flex flex-col gap-3">
-        <div>
-          Made with ❤️ by <span className="font-pixel">Pixils</span>
-        </div>
-        <div>
-          incubated at{" "}
-          <a
-            href="https://hackowasp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="inline"
-              src="/hackowasp.png"
-              alt="Hackowasp"
-              width={50}
-              height={100}
-            />
-          </a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
