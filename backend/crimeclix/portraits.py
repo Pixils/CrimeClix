@@ -31,8 +31,14 @@ def portraits():
 
             return {}, 201
 
-    return [os.path.join(current_app.config['UPLOAD_FOLDER'], file) for file in os.listdir(current_app.config["UPLOAD_FOLDER"])]
+    return [
+        os.path.join(current_app.config["UPLOAD_FOLDER"], file)
+        for file in os.listdir(current_app.config["UPLOAD_FOLDER"])
+    ]
 
-@bp.route("/<path:name>", methods=("GET", ))
+
+@bp.route("/<path:name>", methods=("GET",))
 def portrait(name):
-    return send_from_directory(os.path.join("..", current_app.config["UPLOAD_FOLDER"]), name)
+    return send_from_directory(
+        os.path.join("..", current_app.config["UPLOAD_FOLDER"]), name
+    )
