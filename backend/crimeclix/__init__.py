@@ -26,7 +26,9 @@ def create_app(test_config=None):
 
     # register blueprints
     from . import portraits
+    from . import text2portrait
 
     app.register_blueprint(portraits.bp)
+    app.register_blueprint(text2portrait.bp)
 
     return app
