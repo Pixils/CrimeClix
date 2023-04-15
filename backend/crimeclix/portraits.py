@@ -1,6 +1,5 @@
-import os, secrets
+import os, requests
 from flask import Blueprint, request, current_app, send_from_directory
-from werkzeug.utils import secure_filename
 
 bp = Blueprint("portraits", __name__, url_prefix="/portraits")
 
@@ -18,18 +17,27 @@ def portraits():
             return {"error": "no portrait part"}, 400
 
         portrait = request.files["portrait"]
+        _, f_ext = os.path.splitext(portrait.filename)
 
         if portrait.filename == "":
             return {"error": "no portrait provided"}, 400
 
         if portrait and allowed_file(portrait.filename):
-            filename = secure_filename(portrait.filename)
-            random_hex = secrets.token_urlsafe(8)
-            _, f_ext = os.path.splitext(filename)
-            picture_fn = random_hex + f_ext
-            portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], picture_fn))
+            data = portrait.stream.read()
+            response = requests.post(
+                "https://api.web3.storage/upload",
+                headers={
+                    "Authorization": "Bearer " + current_app.config["WEB3_KEY"]
+                },
+                data=data
+            ).json()
 
-            return {}, 201
+            cid = response.get("cid")
+
+            # TODO: Can't save the file because the stream is being read on line 26
+            # portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], cid + f_ext))
+
+            return response, 201
 
     return [
         os.path.join(current_app.config["UPLOAD_FOLDER"], file)
