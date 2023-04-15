@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
@@ -17,8 +18,8 @@ export default function Home() {
           of criminals from textual descriptions
         </h1>
         <div className="flex justify-center w-full mt-12">
-          <Link href="/try" className="text-white px-12 py-3 font-lg font-semibold rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-700 hover:from-indigo-500 hover:to-indigo-800 shadow-2xl shadow-stone-800/30 transition hover:scale-110">
-            Try Now!
+          <Link href="/try">
+            <Button>Try Now!</Button>
           </Link>
         </div>
         <div className="w-full mt-20 px-16 py-40 bg-indigo-300 rounded-3xl flex items-center justify-evenly shadow-2xl shadow-stone-800/30">
