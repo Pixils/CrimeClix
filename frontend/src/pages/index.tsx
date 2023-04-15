@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="mx-20 max-w-4xl md:mx-auto">
+    <div className="mx-20 mb-32 max-w-4xl md:mx-auto">
       <Navbar />
       <main className="mt-16">
         <div className="text-7xl mb-8">🚨</div>
