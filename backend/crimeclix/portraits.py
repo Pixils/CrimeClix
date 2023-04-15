@@ -11,10 +11,9 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@bp.route("/", methods=("POST",))
+@bp.route("/", methods=("GET", "POST"))
 def portraits():
     if request.method == "POST":
-        print(request.content_type)
         if "portrait" not in request.files:
             return {"error": "no portrait part"}, 400
 
@@ -31,3 +30,5 @@ def portraits():
             portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], picture_fn))
 
             return {}, 201
+
+    return [os.path.join(current_app.config['UPLOAD_FOLDER'], file) for file in os.listdir(current_app.config["UPLOAD_FOLDER"])]
