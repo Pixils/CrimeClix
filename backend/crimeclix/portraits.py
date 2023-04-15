@@ -1,4 +1,4 @@
-import os
+import os, secrets
 from flask import Blueprint, request, current_app
 from werkzeug.utils import secure_filename
 
@@ -11,7 +11,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@bp.route("/", methods=("POST", ))
+@bp.route("/", methods=("POST",))
 def portraits():
     if request.method == "POST":
         print(request.content_type)
@@ -25,4 +25,9 @@ def portraits():
 
         if portrait and allowed_file(portrait.filename):
             filename = secure_filename(portrait.filename)
-            portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+            random_hex = secrets.token_hex(8)
+            _, f_ext = os.path.splitext(filename)
+            picture_fn = random_hex + f_ext
+            portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], picture_fn))
+
+            return {}, 201
