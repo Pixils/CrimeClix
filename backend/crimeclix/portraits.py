@@ -34,9 +34,6 @@ def portraits():
 
             cid = response.get("cid")
 
-            # TODO: Can't save the file because the stream is being read on line 26
-            # portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], cid + f_ext))
-
             return response, 201
 
     return [
