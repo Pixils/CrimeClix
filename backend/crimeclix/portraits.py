@@ -17,7 +17,6 @@ def portraits():
             return {"error": "no portrait part"}, 400
 
         portrait = request.files["portrait"]
-        _, f_ext = os.path.splitext(portrait.filename)
 
         if portrait.filename == "":
             return {"error": "no portrait provided"}, 400
@@ -32,14 +31,10 @@ def portraits():
                 data=data
             ).json()
 
-            cid = response.get("cid")
-
             return response, 201
 
-    return [
-        os.path.join(current_app.config["UPLOAD_FOLDER"], file)
-        for file in os.listdir(current_app.config["UPLOAD_FOLDER"])
-    ]
+    # TODO: return with CIDs
+    return {}
 
 
 @bp.route("/<path:name>", methods=("GET",))
