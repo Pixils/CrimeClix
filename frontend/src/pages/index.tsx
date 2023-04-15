@@ -23,16 +23,16 @@ export default function Home() {
           of criminals from textual descriptions
         </h1>
         <div className="flex justify-center w-full mt-12">
-          <button className="text-white px-12 py-3 font-lg font-semibold rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 shadow-2xl shadow-stone-800/30">
+          <button className="text-white px-12 py-3 font-lg font-semibold rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-700 hover:from-indigo-500 hover:to-indigo-800 shadow-2xl shadow-stone-800/30 transition hover:scale-110">
             Try Now!
           </button>
         </div>
         <div className="w-full mt-20 px-16 py-40 bg-indigo-300 rounded-3xl flex items-center justify-evenly shadow-2xl shadow-stone-800/30">
-          <span className="bg-white p-10 w-48 rounded-2xl font-handwritten shadow-2xl shadow-stone-800/30">
+          <span className="bg-white p-10 w-48 rounded-2xl font-handwritten shadow-2xl shadow-stone-800/30 transition hover:scale-110">
             “wears a black cap and a gold chain...”
           </span>
           <Image src="/arrow.png" alt="" width="200" height="100" />
-          <span className="rounded-2xl shadow-2xl shadow-stone-800/30 overflow-hidden">
+          <span className="rounded-2xl shadow-2xl shadow-stone-800/30 overflow-hidden transition hover:scale-110">
             <Image src="/criminal.png" alt="" width="200" height="200" />
           </span>
         </div>
@@ -43,7 +43,11 @@ export default function Home() {
         </div>
         <div>
           incubated at{" "}
-          <a href="https://hackowasp.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://hackowasp.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image
               className="inline"
               src="/hackowasp.png"
