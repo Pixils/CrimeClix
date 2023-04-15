@@ -7,10 +7,3 @@ Identify these criminals from live CCTV feeds in real time and raise alerts.
 - **Frontend**: [Next.js](https://nextjs.org)
 - **Backend**: [flask](https://flask.palletsprojects.com/)
 
-# Backend API endpoints
-
-| S. No.  |  Method  | Endpoints               |          Description          |
-| :-----  |:---------| :-----------------------| :---------------------------- |
-| 1       | GET      | portraits/              | Get all generated portraits   |
-| 2       | POST     | portraits/              | Upload generated portrait     |
-| 3       | GET      | portraits/{name}        | Get specific portrait         |
