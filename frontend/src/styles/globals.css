@@ -1,3 +1,7 @@
+@import url('https://api.fontshare.com/css?f[]=general-sans&display=swap');
+@import url('https://api.fontshare.com/css?f[]=array&display=swap');
+@import url('https://api.fontshare.com/css?f[]=kalam&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
