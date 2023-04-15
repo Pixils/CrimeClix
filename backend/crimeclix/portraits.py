@@ -1,5 +1,5 @@
 import os, secrets
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, send_from_directory
 from werkzeug.utils import secure_filename
 
 bp = Blueprint("portraits", __name__, url_prefix="/portraits")
@@ -24,7 +24,7 @@ def portraits():
 
         if portrait and allowed_file(portrait.filename):
             filename = secure_filename(portrait.filename)
-            random_hex = secrets.token_hex(8)
+            random_hex = secrets.token_urlsafe(8)
             _, f_ext = os.path.splitext(filename)
             picture_fn = random_hex + f_ext
             portrait.save(os.path.join(current_app.config["UPLOAD_FOLDER"], picture_fn))
@@ -32,3 +32,7 @@ def portraits():
             return {}, 201
 
     return [os.path.join(current_app.config['UPLOAD_FOLDER'], file) for file in os.listdir(current_app.config["UPLOAD_FOLDER"])]
+
+@bp.route("/<path:name>", methods=("GET", ))
+def portrait(name):
+    return send_from_directory(os.path.join("..", current_app.config["UPLOAD_FOLDER"]), name)
