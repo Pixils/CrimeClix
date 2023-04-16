@@ -66,7 +66,7 @@ const Try = () => {
           <Button onClick={() => text2Image(prompt)}>Generate</Button>
           <span>
             {uploadStatus && <span className="mr-5">Uploaded to IPFS</span>}
-            <Button onClick={() => uploadToIPFS()}>Next</Button>
+            <Button onClick={() => uploadToIPFS()}>Upload to IPFS</Button>
           </span>
         </div>
       </div>
