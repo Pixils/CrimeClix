@@ -58,7 +58,7 @@ const Try = ({ host }: TryProps) => {
   return (
     <div className="mx-20 max-w-4xl md:mx-auto mb-40">
       <Navbar />
-      {host === "localhos" || host === "127.0.0.1" ? (
+      {host === "localhost" || host === "127.0.0.1" ? (
         <div className="bg-white rounded-2xl p-10 mt-12 min-h-[520px]">
           <div className="flex justify-stretch gap-10 mb-10">
             <textarea
