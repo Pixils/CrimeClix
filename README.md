@@ -11,4 +11,6 @@ Identify these criminals from live CCTV feeds in real time and raise alerts.
 # Technologies
 - **Frontend**: [Next.js](https://nextjs.org)
 - **Backend**: [flask](https://flask.palletsprojects.com/)
-
+- **Storage**: [web3.storage](https://web3.storage)
+- **Deployment**: [Vercel](https://vercel.com)
+- **ML Models**: YOLOv4, Single Shot Detection
