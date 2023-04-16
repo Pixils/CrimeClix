@@ -1,40 +1,38 @@
-import os, requests
+import os, requests, json
 from flask import Blueprint, request, current_app, send_from_directory
 
 bp = Blueprint("portraits", __name__, url_prefix="/portraits")
 
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-
-
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 @bp.route("/", methods=("GET", "POST"))
 def portraits():
     if request.method == "POST":
-        if "portrait" not in request.files:
-            return {"error": "no portrait part"}, 400
+        response = json.loads(request.data)
 
-        portrait = request.files["portrait"]
+        portrait_src = response.get("portrait")
 
-        if portrait.filename == "":
-            return {"error": "no portrait provided"}, 400
+        if not portrait_src:
+            return {"error": "portrait is required"}, 400
 
-        if portrait and allowed_file(portrait.filename):
-            data = portrait.stream.read()
-            response = requests.post(
-                "https://api.web3.storage/upload",
-                headers={
-                    "Authorization": "Bearer " + current_app.config["WEB3_KEY"]
-                },
-                data=data
-            ).json()
+        portrait = requests.get(portrait_src, allow_redirects=True)
 
-            return response, 201
+        response = requests.post(
+            "https://api.web3.storage/upload",
+            headers={"Authorization": "Bearer " + current_app.config["WEB3_KEY"]},
+            data=portrait.content,
+        ).json()
+
+        return response, 201
 
     # TODO: return with CIDs
-    return {}
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post>
+      <input type=text name=portrait>
+      <input type=submit value=Upload>
+    </form>
+    '''
 
 
 @bp.route("/<path:name>", methods=("GET",))
