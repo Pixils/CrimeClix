@@ -5,6 +5,7 @@ interface OutputProps {
 }
 
 const Output = ({ output }: OutputProps) => {
+  console.log(output)
   return (
     <div className="grid grid-cols-3 gap-5 place-items-center h-full">
       {output.map((src) => (

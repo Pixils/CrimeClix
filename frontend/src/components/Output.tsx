@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MoonLoader } from "react-spinners";
 
 interface OutputProps {
   src: string | undefined;
@@ -7,11 +8,11 @@ interface OutputProps {
 
 const Output = ({ src, status }: OutputProps) => {
   if (status === "loading") {
-    return <h1>Loading...</h1>;
+    return <MoonLoader color="#4f46e5" />;
   }
 
   if (status === "idle" && !src) {
-    return <div></div>;
+    return <h1></h1>;
   }
 
   return (

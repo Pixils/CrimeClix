@@ -21,7 +21,7 @@ const Try = () => {
     const {
       data,
     } = await axios.post("https://stablediffusionapi.com/api/v3/text2img", {
-      key: "gBqGszBHYoxU8Wb0d8mXyTL2tB68ZEB31Ps8J8LXK9Kx07HVJE6R4mGVUYPJ",
+      key: "4Axf7oGUonA0g1lHSVtZoau2JWDToCMUWn0OD571xT0MwTxTYJcZq68Jwaan",
       prompt: updatedPrompt,
       width: 512,
       height: 512,
@@ -35,7 +35,7 @@ const Try = () => {
 
   const uploadToIPFS = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/portraits/", {
+      await axios.post("http://127.0.0.1:5001/portraits/", {
         portrait: output,
       });
 
@@ -58,7 +58,7 @@ const Try = () => {
             cols={30}
             rows={10}
           ></textarea>
-          <div>
+          <div className="grid place-content-center w-full">
             <Output status={status} src={output} />
           </div>
         </div>
