@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'w3s.link',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
 }

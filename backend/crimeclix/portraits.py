@@ -1,38 +1,48 @@
-import os, requests, json
+import os, requests
 from flask import Blueprint, request, current_app, send_from_directory
 
 bp = Blueprint("portraits", __name__, url_prefix="/portraits")
 
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
+
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @bp.route("/", methods=("GET", "POST"))
 def portraits():
     if request.method == "POST":
-        response = json.loads(request.data)
+        if "portrait" not in request.files:
+            return {"error": "no portrait part"}, 400
 
-        portrait_src = response.get("portrait")
+        portrait = request.files["portrait"]
 
-        if not portrait_src:
-            return {"error": "portrait is required"}, 400
+        if portrait.filename == "":
+            return {"error": "no portrait provided"}, 400
 
-        portrait = requests.get(portrait_src, allow_redirects=True)
+        if portrait and allowed_file(portrait.filename):
+            data = portrait.stream.read()
+            response = requests.post(
+                "https://api.web3.storage/upload",
+                headers={
+                    "Authorization": "Bearer " + current_app.config["WEB3_KEY"]
+                },
+                data=data
+            ).json()
 
-        response = requests.post(
-            "https://api.web3.storage/upload",
-            headers={"Authorization": "Bearer " + current_app.config["WEB3_KEY"]},
-            data=portrait.content,
-        ).json()
-
-        return response, 201
-
-    # TODO: return with CIDs
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post>
-      <input type=text name=portrait>
-      <input type=submit value=Upload>
-    </form>
-    '''
+            return response, 201
+    response = requests.get(
+        "https://api.web3.storage/user/uploads",
+        headers={
+            "Authorization": "Bearer " + current_app.config["WEB3_KEY"]
+        }
+    ).json()
+    imgList = []
+    for img in response:
+        imgList.append(img['cid'])
+    print(imgList)
+    return {'data': imgList}
 
 
 @bp.route("/<path:name>", methods=("GET",))
