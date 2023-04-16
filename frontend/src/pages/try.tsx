@@ -1,11 +1,18 @@
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import Image from "next/image";
+import axios from "axios";
+
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Output from "@/components/Output";
-import axios from "axios";
-import { useState } from "react";
 
-const Try = () => {
+interface TryProps {
+  host: string;
+}
+
+const Try = ({ host }: TryProps) => {
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<"idle" | "loading">("idle");
@@ -50,41 +57,67 @@ const Try = () => {
   return (
     <div className="mx-20 max-w-4xl md:mx-auto mb-40">
       <Navbar />
-      <div className="bg-white rounded-2xl p-10 mt-12 min-h-[520px]">
-        <div className="flex justify-stretch gap-10 mb-10">
-          <textarea
-            className="bg-zinc-100 p-10 rounded-xl"
-            placeholder="Enter your description of criminal here..."
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            cols={30}
-            rows={10}
-          ></textarea>
-          <div className="grid place-content-center w-full">
-            <Output status={status} src={output} />
+      {host === "localhost" || host === "127.0.0.1" ? (
+        <div className="bg-white rounded-2xl p-10 mt-12 min-h-[520px]">
+          <div className="flex justify-stretch gap-10 mb-10">
+            <textarea
+              className="bg-zinc-100 p-10 rounded-xl"
+              placeholder="Enter your description of criminal here..."
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              cols={30}
+              rows={10}
+            ></textarea>
+            <div className="grid place-content-center w-full">
+              <Output status={status} src={output} />
+            </div>
+          </div>
+          <div className="flex gap-3 justify-between">
+            <Button onClick={() => text2Image(prompt)}>Generate</Button>
+            <span>
+              <span className="font-semibold">
+                {uploadStatus === "successful" ? (
+                  <span className="mr-5 text-teal-500">
+                    successfully uploaded to IPFS
+                  </span>
+                ) : uploadStatus === "error" ? (
+                  <span className="mr-5 text-rose-500">An Error occured</span>
+                ) : null}
+              </span>
+              {output && (
+                <Button onClick={() => uploadToIPFS()}>
+                  {uploadStatus === "uploading" ? "Loading..." : "Upload"}
+                </Button>
+              )}
+            </span>
           </div>
         </div>
-        <div className="flex gap-3 justify-between">
-          <Button onClick={() => text2Image(prompt)}>Generate</Button>
-          <span>
-            <span className="font-semibold">
-              {uploadStatus === "successful" ? (
-                <span className="mr-5 text-teal-500">successfully uploaded to IPFS</span>
-              ) : uploadStatus === "error" ? (
-                <span className="mr-5 text-rose-500">An Error occured</span>
-              ) : null}
-            </span>
-            {output && (
-              <Button onClick={() => uploadToIPFS()}>
-                {uploadStatus === "uploading" ? "Loading..." : "Upload"}
-              </Button>
-            )}
-          </span>
+      ) : (
+        <div className="bg-white rounded-2xl p-10 mt-12">
+          <Image src="/sad.png" className="mb-6" alt="sad" width={60} height={60}/>
+          <h1 className="text-4xl font-bold mb-5">
+            We are extremely sorry ut we cannot show you the demo on this
+            deployed website.
+          </h1>
+          <h2 className="text-xl font-semibold">
+            However, you can view the demo on our local server.
+          </h2>
+          <p className="mt-3">
+            This is because, one of the API our service depends on is not CORS enabled.
+          </p>
         </div>
-      </div>
+      )}
       <Footer />
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      host: context.req.headers.host?.split(":")[0],
+    },
+  };
 };
 
 export default Try;
