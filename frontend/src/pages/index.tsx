@@ -17,6 +17,7 @@ export default function Home() {
           </mark>{" "}
           of criminals from textual descriptions
         </h1>
+        <h2 className="text-3xl font-semibold mt-6">and store them permanently on IPFS</h2>
         <div className="flex justify-center w-full mt-12">
           <Link href="/try">
             <Button>Try Now!</Button>
