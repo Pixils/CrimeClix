@@ -19,9 +19,9 @@ const Try = () => {
     const updatedPrompt = `${prompt}, adult, portrait, realistic, looking at the camera`;
 
     const {
-      data: { output },
+      data,
     } = await axios.post("https://stablediffusionapi.com/api/v3/text2img", {
-      key: "c7dKHZ709uP1N6yRp1mS8F3ALK3CrldPfuIPfnwSz7rML1mqjiOPGQ1SiixI",
+      key: "gBqGszBHYoxU8Wb0d8mXyTL2tB68ZEB31Ps8J8LXK9Kx07HVJE6R4mGVUYPJ",
       prompt: updatedPrompt,
       width: 512,
       height: 512,
@@ -29,8 +29,7 @@ const Try = () => {
       promptStrenght: 20,
     });
 
-    console.log(output[0]);
-    setOutput(output[0]);
+    setOutput(data.output[0]);
     setStatus("idle");
   };
 
