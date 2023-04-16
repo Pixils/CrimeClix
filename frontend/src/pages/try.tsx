@@ -96,7 +96,7 @@ const Try = ({ host }: TryProps) => {
         <div className="bg-white rounded-2xl p-10 mt-12">
           <Image src="/sad.png" className="mb-6" alt="sad" width={60} height={60}/>
           <h1 className="text-4xl font-bold mb-5">
-            We are extremely sorry ut we cannot show you the demo on this
+            We are extremely sorry but we cannot show you the demo on this
             deployed website.
           </h1>
           <h2 className="text-xl font-semibold">
