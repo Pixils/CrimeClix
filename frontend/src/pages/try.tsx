@@ -16,7 +16,7 @@ const Try = () => {
     setStatus("loading");
     setUploadStatus(false);
 
-    const updatedPrompt = `${prompt}, portrait, realistic, looking at the camera`;
+    const updatedPrompt = `${prompt}, adult, portrait, realistic, looking at the camera`;
 
     const {
       data: { output },
