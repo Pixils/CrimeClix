@@ -3,6 +3,7 @@ import AllImages from "@/components/Allimages";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
+import MoonLoader from "react-spinners/MoonLoader";
 
 const CriminalsList = () => {
   const [output, setOutput] = useState<string[]>([]);
@@ -26,7 +27,9 @@ const CriminalsList = () => {
           All criminals
         </h1>
         {isLoading ? (
-          <h1>Loading...</h1>
+          <div className="w-full flex justify-center">
+            <MoonLoader color="#4f46e5"/>
+          </div>
         ) : (
           <div className="flex justify-stretch gap-10 mb-10">
             <div>
