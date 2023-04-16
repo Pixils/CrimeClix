@@ -9,46 +9,48 @@ const Try = () => {
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<"idle" | "loading">("idle");
-  const [uploadStatus, setUploadStatus] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "uploading" | "successful" | "error"
+  >("idle");
 
   const text2Image = async (prompt: string) => {
-    console.log("Generating image");
     setStatus("loading");
-    setUploadStatus(false);
 
     const updatedPrompt = `${prompt}, adult, portrait, realistic, looking at the camera`;
 
-    const {
-      data,
-    } = await axios.post("https://stablediffusionapi.com/api/v3/text2img", {
-      key: "4Axf7oGUonA0g1lHSVtZoau2JWDToCMUWn0OD571xT0MwTxTYJcZq68Jwaan",
-      prompt: updatedPrompt,
-      width: 512,
-      height: 512,
-      samples: 1,
-      promptStrenght: 20,
-    });
+    const { data } = await axios.post(
+      "https://stablediffusionapi.com/api/v3/text2img",
+      {
+        key: "4Axf7oGUonA0g1lHSVtZoau2JWDToCMUWn0OD571xT0MwTxTYJcZq68Jwaan",
+        prompt: updatedPrompt,
+        width: 512,
+        height: 512,
+        samples: 1,
+        promptStrenght: 20,
+      }
+    );
 
     setOutput(data.output[0]);
     setStatus("idle");
   };
 
   const uploadToIPFS = async () => {
+    setUploadStatus("uploading");
     try {
       await axios.post("http://127.0.0.1:5001/portraits/", {
         portrait: output,
       });
-
-      setUploadStatus(true);
+      setUploadStatus("successful");
     } catch (err) {
       console.error(err);
+      setUploadStatus("error");
     }
   };
 
   return (
     <div className="mx-20 max-w-4xl md:mx-auto mb-40">
       <Navbar />
-      <div className="bg-white rounded-2xl p-10 mt-12">
+      <div className="bg-white rounded-2xl p-10 mt-12 min-h-[520px]">
         <div className="flex justify-stretch gap-10 mb-10">
           <textarea
             className="bg-zinc-100 p-10 rounded-xl"
@@ -65,8 +67,18 @@ const Try = () => {
         <div className="flex gap-3 justify-between">
           <Button onClick={() => text2Image(prompt)}>Generate</Button>
           <span>
-            {uploadStatus && <span className="mr-5">Uploaded to IPFS</span>}
-            <Button onClick={() => uploadToIPFS()}>Upload to IPFS</Button>
+            <span className="font-semibold">
+              {uploadStatus === "successful" ? (
+                <span className="mr-5 text-teal-500">successfully uploaded to IPFS</span>
+              ) : uploadStatus === "error" ? (
+                <span className="mr-5 text-rose-500">An Error occured</span>
+              ) : null}
+            </span>
+            {output && (
+              <Button onClick={() => uploadToIPFS()}>
+                {uploadStatus === "uploading" ? "Loading..." : "Upload"}
+              </Button>
+            )}
           </span>
         </div>
       </div>

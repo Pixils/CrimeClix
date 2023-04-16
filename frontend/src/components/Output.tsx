@@ -12,7 +12,7 @@ const Output = ({ src, status }: OutputProps) => {
   }
 
   if (status === "idle" && !src) {
-    return <h1></h1>;
+    return <h1 className="font-semibold">Write the description and a portraint will appear here</h1>;
   }
 
   return (

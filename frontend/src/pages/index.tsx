@@ -9,7 +9,14 @@ export default function Home() {
     <div className="mx-20 mb-32 max-w-4xl md:mx-auto">
       <Navbar />
       <main className="mt-16">
-        <div className="text-7xl mb-8">🚨</div>
+        {/* <div className="text-7xl mb-8">🚨</div> */}
+        <Image
+          src="/weeWooweeWoo.png"
+          alt="weeWooweeWoo"
+          width={85}
+          height={85}
+          className="mb-8"
+        />
         <h1 className="text-6xl font-bold text-stone-800">
           Create{" "}
           <mark className="bg-transparent shadow-[inset_0_-0.5em_0_0_#818cf8]">
@@ -17,7 +24,9 @@ export default function Home() {
           </mark>{" "}
           of criminals from textual descriptions
         </h1>
-        <h2 className="text-3xl font-semibold mt-6">and store them permanently on IPFS</h2>
+        <h2 className="text-3xl font-semibold mt-6">
+          and store them permanently on IPFS
+        </h2>
         <div className="flex justify-center w-full mt-12">
           <Link href="/try">
             <Button>Try Now!</Button>

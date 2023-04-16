@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
-import AllImages from "@/components/Allimages";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
+import ImageGrid from "@/components/ImageGrid";
 
 const CriminalsList = () => {
   const [output, setOutput] = useState<string[]>([]);
@@ -23,8 +23,8 @@ const CriminalsList = () => {
     <div className="mx-20 max-w-4xl md:mx-auto">
       <Navbar />
       <div className="bg-white rounded-2xl p-10 mt-12">
-        <h1 className="text-zinc-500 font-semibold text-3xl mb-4">
-          All criminals
+        <h1 className="font-semibold text-3xl mb-6">
+          {`${output.length} known criminals`}
         </h1>
         {isLoading ? (
           <div className="w-full flex justify-center">
@@ -33,7 +33,7 @@ const CriminalsList = () => {
         ) : (
           <div className="flex justify-stretch gap-10 mb-10">
             <div>
-              <AllImages output={output} />
+              <ImageGrid output={output} />
             </div>
           </div>
         )}

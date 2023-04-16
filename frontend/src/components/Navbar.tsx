@@ -9,7 +9,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex gap-8">
-        <Link href="/criminals" className="hover:underline">Known Criminals</Link>
+        <Link href="/criminals" className="hover:underline">Criminal Database</Link>
         <span className="text-stone-500 font-light">
           By Team <span className="font-pixel">Pixils</span> 🫰
         </span>
