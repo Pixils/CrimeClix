@@ -29,7 +29,7 @@ const Try = ({ host }: TryProps) => {
     const { data } = await axios.post(
       "https://stablediffusionapi.com/api/v3/text2img",
       {
-        key: "4Axf7oGUonA0g1lHSVtZoau2JWDToCMUWn0OD571xT0MwTxTYJcZq68Jwaan",
+        key: "LZ5U40dpoD6FxxvtBxpnNxFyPGSAIhpSqxyxImUgseTGChXllDADpOpRPFh9",
         prompt: updatedPrompt,
         width: 512,
         height: 512,
@@ -45,7 +45,7 @@ const Try = ({ host }: TryProps) => {
   const uploadToIPFS = async () => {
     setUploadStatus("uploading");
     try {
-      await axios.post("http://127.0.0.1:5001/portraits/", {
+      await axios.post("http://127.0.0.1:5000/portraits/", {
         portrait: output,
       });
       setUploadStatus("successful");
@@ -62,14 +62,14 @@ const Try = ({ host }: TryProps) => {
         <div className="bg-white rounded-2xl p-10 mt-12 min-h-[520px]">
           <div className="flex justify-stretch gap-10 mb-10">
             <textarea
-              className="bg-zinc-100 p-10 rounded-xl"
+              className="bg-zinc-100 p-8 rounded-xl"
               placeholder="Enter your description of criminal here..."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               cols={30}
               rows={10}
             ></textarea>
-            <div className="grid place-content-center w-full">
+            <div className="grid place-content-center w-full bg-zinc-100 rounded-xl">
               <Output status={status} src={output} />
             </div>
           </div>
